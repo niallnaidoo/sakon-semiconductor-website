@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sakon Semiconductors</title>
+  <meta name="description" content="Sakon Semiconductors is building Africa's first Wi-Fi HaLow (IEEE 802.11ah) System-on-Chip: long-range, low-power, secure IoT connectivity for harsh and remote environments.">
+  <meta property="og:title" content="Sakon Semiconductors — Africa's first Wi-Fi HaLow SoC">
+  <meta property="og:description" content="Long-range, low-power, secure IoT connectivity for harsh and remote environments.">
+  <meta property="og:image" content="assets/img/africa.jpg">
+  <meta name="theme-color" content="#2A3E4B">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <script>
+    // Decide before first paint whether the logo intro plays (once per session, not for reduced motion)
+    (function () {
+      var skip = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      try { skip = skip || sessionStorage.getItem("sakonIntroSeen") === "1"; } catch (e) {}
+      document.documentElement.classList.add(skip ? "intro-skip" : "intro-playing");
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div class="intro" id="intro">
+  <video class="intro__video" muted playsinline autoplay preload="auto" aria-label="Sakon Semiconductor logo animation">
+    <source src="assets/video/sakon-intro.webm" type="video/webm">
+    <source src="assets/video/sakon-intro.mp4" type="video/mp4">
+  </video>
+  <button type="button" class="intro__skip">Skip intro</button>
+</div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="wrap nav__inner">
+    <a href="#top" class="brand" aria-label="Sakon Semiconductors home">
+      <img class="logo-light" src="assets/img/sakon-logo-light.png" alt="Sakon Semiconductor" width="215" height="30">
+      <img class="logo-dark" src="assets/img/sakon-logo-dark.png" alt="" width="215" height="30">
+    </a>
+    <button class="nav__toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+    <nav id="nav-links" class="nav__links" aria-label="Primary">
+      <a href="#technology">Technology</a>
+      <a href="#products">Products</a>
+      <a href="#applications">Applications</a>
+      <a href="#progress">Progress</a>
+      <a href="#team">Team</a>
+      <a href="#contact" class="btn btn--sm">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__rings" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="wrap hero__inner">
+      <p class="eyebrow">IEEE 802.11ah · Sub-1 GHz · Born at the University of Cape Town</p>
+      <h1>Africa’s first <span class="grad">Wi-Fi HaLow</span> <span class="nowrap">System-on-Chip</span></h1>
+      <p class="lead">Long-range, low-power and secure IoT connectivity for harsh and remote environments. We connect sensors, cameras and equipment across farms, mines and utility networks from a single access point.</p>
+      <div class="hero__cta">
+        <a href="#technology" class="btn">Explore the technology</a>
+        <a href="#contact" class="btn btn--ghost">Partner or invest</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats" aria-label="Wi-Fi HaLow at a glance">
+    <div class="wrap stats__grid">
+      <div class="stat"><b>~1 km</b><span>range per link</span></div>
+      <div class="stat"><b>10×</b><span>further than conventional Wi-Fi</span></div>
+      <div class="stat"><b>1,000×</b><span>the data rate of LoRa</span></div>
+      <div class="stat"><b>8,000+</b><span>devices per access point</span></div>
+    </div>
+  </section>
+
+  <!-- PROBLEM / SOLUTION -->
+  <section class="section" id="why">
+    <div class="wrap split">
+      <div class="split__text reveal">
+        <p class="eyebrow">The connectivity gap</p>
+        <h2>Wi-Fi stops at the farmhouse. Operations don’t.</h2>
+        <p>On farms, mines and industrial sites, conventional Wi-Fi fades a short distance from buildings. Sensors drop out across open fields, and operations stay manual and reactive. Long-range protocols like LoRa reach further, but they carry too little data for cameras, voice or video.</p>
+        <p>Wi-Fi HaLow fills that gap. It runs at 900 MHz on narrow channels, so its signal travels about a kilometre and passes through walls and obstacles. It still carries real Wi-Fi throughput.</p>
+      </div>
+      <figure class="coverage reveal" id="coverage" data-mode="wifi">
+        <div class="coverage__toggle" role="group" aria-label="Compare coverage">
+          <button type="button" data-mode="wifi" aria-pressed="true">Traditional Wi-Fi</button>
+          <button type="button" data-mode="halow" aria-pressed="false">Wi-Fi HaLow</button>
+          <span class="coverage__thumb" aria-hidden="true"></span>
+        </div>
+        <div class="coverage__stage">
+          <img src="assets/img/farm.jpg" alt="Aerial view of a farm with outbuildings and open fields" loading="lazy">
+          <svg class="coverage__svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <radialGradient id="covFill">
+                <stop offset="0" stop-color="#D6E6EF" stop-opacity=".34"/>
+                <stop offset=".7" stop-color="#7FA6B8" stop-opacity=".16"/>
+                <stop offset="1" stop-color="#7FA6B8" stop-opacity=".05"/>
+              </radialGradient>
+            </defs>
+            <circle class="cov__area" cx="195" cy="152" r="420" fill="url(#covFill)"/>
+            <circle class="cov__edge" cx="195" cy="152" r="420"/>
+            <circle class="cov__wave" cx="195" cy="152" r="420"/>
+            <circle class="cov__wave cov__wave--2" cx="195" cy="152" r="420"/>
+            <g class="cov__sensor is-near" style="--d:0.07s"><line class="cov__link" x1="195" y1="152" x2="172" y2="136" pathLength="1"/><circle class="cov__ping" cx="172" cy="136" r="5"/><circle class="cov__dot" cx="172" cy="136" r="4.5"/><path class="cov__x" d="M169.8 133.8l4.4 4.4M174.2 133.8l-4.4 4.4"/></g>
+            <g class="cov__sensor is-near" style="--d:0.08s"><line class="cov__link" x1="195" y1="152" x2="222" y2="168" pathLength="1"/><circle class="cov__ping" cx="222" cy="168" r="5"/><circle class="cov__dot" cx="222" cy="168" r="4.5"/><path class="cov__x" d="M219.8 165.8l4.4 4.4M224.2 165.8l-4.4 4.4"/></g>
+            <g class="cov__sensor is-near" style="--d:0.09s"><line class="cov__link" x1="195" y1="152" x2="212" y2="122" pathLength="1"/><circle class="cov__ping" cx="212" cy="122" r="5"/><circle class="cov__dot" cx="212" cy="122" r="4.5"/><path class="cov__x" d="M209.8 119.8l4.4 4.4M214.2 119.8l-4.4 4.4"/></g>
+            <g class="cov__sensor" style="--d:0.35s"><line class="cov__link" x1="195" y1="152" x2="58" y2="120" pathLength="1"/><circle class="cov__ping" cx="58" cy="120" r="5"/><circle class="cov__dot" cx="58" cy="120" r="4.5"/><path class="cov__x" d="M55.8 117.8l4.4 4.4M60.2 117.8l-4.4 4.4"/></g>
+            <g class="cov__sensor" style="--d:0.20s"><line class="cov__link" x1="195" y1="152" x2="132" y2="100" pathLength="1"/><circle class="cov__ping" cx="132" cy="100" r="5"/><circle class="cov__dot" cx="132" cy="100" r="4.5"/><path class="cov__x" d="M129.8 97.8l4.4 4.4M134.2 97.8l-4.4 4.4"/></g>
+            <g class="cov__sensor" style="--d:0.29s"><line class="cov__link" x1="195" y1="152" x2="298" y2="98" pathLength="1"/><circle class="cov__ping" cx="298" cy="98" r="5"/><circle class="cov__dot" cx="298" cy="98" r="4.5"/><path class="cov__x" d="M295.8 95.8l4.4 4.4M300.2 95.8l-4.4 4.4"/></g>
+            <g class="cov__sensor" style="--d:0.42s"><line class="cov__link" x1="195" y1="152" x2="360" y2="132" pathLength="1"/><circle class="cov__ping" cx="360" cy="132" r="5"/><circle class="cov__dot" cx="360" cy="132" r="4.5"/><path class="cov__x" d="M357.8 129.8l4.4 4.4M362.2 129.8l-4.4 4.4"/></g>
+            <g class="cov__sensor" style="--d:0.39s"><line class="cov__link" x1="195" y1="152" x2="40" y2="182" pathLength="1"/><circle class="cov__ping" cx="40" cy="182" r="5"/><circle class="cov__dot" cx="40" cy="182" r="4.5"/><path class="cov__x" d="M37.8 179.8l4.4 4.4M42.2 179.8l-4.4 4.4"/></g>
+            <g class="cov__sensor" style="--d:0.33s"><line class="cov__link" x1="195" y1="152" x2="98" y2="242" pathLength="1"/><circle class="cov__ping" cx="98" cy="242" r="5"/><circle class="cov__dot" cx="98" cy="242" r="4.5"/><path class="cov__x" d="M95.8 239.8l4.4 4.4M100.2 239.8l-4.4 4.4"/></g>
+            <g class="cov__sensor" style="--d:0.29s"><line class="cov__link" x1="195" y1="152" x2="238" y2="258" pathLength="1"/><circle class="cov__ping" cx="238" cy="258" r="5"/><circle class="cov__dot" cx="238" cy="258" r="4.5"/><path class="cov__x" d="M235.8 255.8l4.4 4.4M240.2 255.8l-4.4 4.4"/></g>
+            <g class="cov__sensor" style="--d:0.42s"><line class="cov__link" x1="195" y1="152" x2="346" y2="226" pathLength="1"/><circle class="cov__ping" cx="346" cy="226" r="5"/><circle class="cov__dot" cx="346" cy="226" r="4.5"/><path class="cov__x" d="M343.8 223.8l4.4 4.4M348.2 223.8l-4.4 4.4"/></g>
+            <g class="cov__sensor" style="--d:0.44s"><line class="cov__link" x1="195" y1="152" x2="372" y2="170" pathLength="1"/><circle class="cov__ping" cx="372" cy="170" r="5"/><circle class="cov__dot" cx="372" cy="170" r="4.5"/><path class="cov__x" d="M369.8 167.8l4.4 4.4M374.2 167.8l-4.4 4.4"/></g>
+            <g class="cov__ap">
+              <circle cx="195" cy="152" r="9"/>
+              <path d="M191 153a5.5 5.5 0 0 1 8 0M188.5 150a9 9 0 0 1 13 0"/>
+              <circle class="cov__ap-dot" cx="195" cy="156" r="1.3"/>
+            </g>
+          </svg>
+          <p class="coverage__caption" aria-live="polite"></p>
+        </div>
+        <div class="coverage__stats">
+          <div><b data-stat="range">~50 m</b><span>coverage radius</span></div>
+          <div><b data-stat="online">3 / 12</b><span>field sensors online</span></div>
+          <div><b data-stat="aps">~50</b><span>access points to cover the site</span></div>
+        </div>
+        <figcaption>Illustrative, not to scale. Tap the toggle to compare.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- TECHNOLOGY -->
+  <section class="section section--alt" id="technology">
+    <div class="wrap">
+      <header class="section__head reveal">
+        <p class="eyebrow">Technology</p>
+        <h2>Why Wi-Fi HaLow reaches further</h2>
+        <p>Lower frequencies travel further and penetrate better. Narrower bands concentrate energy and extend range. Together they give sub-1 GHz Wi-Fi about a kilometre of reach, compared with tens of metres for 2.4 GHz and 5 GHz Wi-Fi.</p>
+      </header>
+
+      <div class="tech">
+        <figure class="chart reveal" aria-labelledby="chart-cap">
+          <svg viewBox="0 0 640 420" role="img" aria-label="Range versus data rate for common IoT radios. Wi-Fi HaLow combines kilometre range with high data rates.">
+            <defs>
+              <linearGradient id="gHalow" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#D6E6EF" stop-opacity=".9"/>
+                <stop offset="1" stop-color="#7FA6B8" stop-opacity=".75"/>
+              </linearGradient>
+            </defs>
+            <!-- grid: plot area x 80..610 (3 decades: 10m..10km), y 30..370 (6 decades: 0.1..100k kbps) -->
+            <g class="grid">
+              <line x1="80" y1="30" x2="80" y2="370"/><line x1="256.7" y1="30" x2="256.7" y2="370"/>
+              <line x1="433.3" y1="30" x2="433.3" y2="370"/><line x1="610" y1="30" x2="610" y2="370"/>
+              <line x1="80" y1="370" x2="610" y2="370"/><line x1="80" y1="313.3" x2="610" y2="313.3"/>
+              <line x1="80" y1="256.7" x2="610" y2="256.7"/><line x1="80" y1="200" x2="610" y2="200"/>
+              <line x1="80" y1="143.3" x2="610" y2="143.3"/><line x1="80" y1="86.7" x2="610" y2="86.7"/>
+              <line x1="80" y1="30" x2="610" y2="30"/>
+            </g>
+            <g class="ticks">
+              <text x="80" y="392" text-anchor="middle">10 m</text><text x="256.7" y="392" text-anchor="middle">100 m</text>
+              <text x="433.3" y="392" text-anchor="middle">1 km</text><text x="610" y="392" text-anchor="middle">10 km</text>
+              <text x="70" y="374" text-anchor="end">0.1</text><text x="70" y="317" text-anchor="end">1</text>
+              <text x="70" y="261" text-anchor="end">10</text><text x="70" y="204" text-anchor="end">100</text>
+              <text x="70" y="147" text-anchor="end">1k</text><text x="70" y="91" text-anchor="end">10k</text>
+              <text x="70" y="34" text-anchor="end">100k</text>
+              <text x="345" y="414" text-anchor="middle" class="axis">Range</text>
+              <text x="18" y="200" text-anchor="middle" class="axis" transform="rotate(-90 18 200)">Data rate (kbps)</text>
+            </g>
+            <!-- regions -->
+            <rect class="r r--wifi" x="95" y="30" width="150" height="130" rx="14"/>
+            <text class="rl" x="170" y="100" text-anchor="middle">Wi-Fi (802.11n)</text>
+            <rect class="r r--bt" x="90" y="150" width="120" height="70" rx="14"/>
+            <text class="rl" x="150" y="190" text-anchor="middle">Bluetooth</text>
+            <rect class="r r--zb" x="110" y="205" width="140" height="60" rx="14"/>
+            <text class="rl" x="180" y="240" text-anchor="middle">Zigbee</text>
+            <rect class="r r--lora" x="420" y="235" width="185" height="110" rx="14"/>
+            <text class="rl" x="512" y="295" text-anchor="middle">LoRa</text>
+            <rect class="r r--halow" x="240" y="62" width="265" height="165" rx="18" fill="url(#gHalow)"/>
+            <text class="rl rl--halow" x="372" y="140" text-anchor="middle">Wi-Fi HaLow</text>
+            <text class="rl rl--sub" x="372" y="160" text-anchor="middle">802.11ah · Sakon SoC</text>
+          </svg>
+          <figcaption id="chart-cap">IoT radios compared by range and data rate. The positions are illustrative.</figcaption>
+        </figure>
+
+        <ul class="benefits reveal">
+          <li><h3>Long range</h3><p>About 1 km per link at sub-1 GHz, and further with line of sight.</p></li>
+          <li><h3>High data rates at range</h3><p>Enough throughput for cameras, voice and video, not just telemetry.</p></li>
+          <li><h3>Penetration</h3><p>Passes through walls, concrete and other obstacles.</p></li>
+          <li><h3>Energy efficient</h3><p>Built for battery-powered sensors that run for years.</p></li>
+          <li><h3>Massive density</h3><p>More than 8,000 connected devices on one access point.</p></li>
+          <li><h3>Reliable</h3><p>Robust against noise and changing conditions.</p></li>
+          <li><h3>Secure</h3><p>WPA3 and enhanced Wi-Fi encryption.</p></li>
+          <li><h3>Easy to deploy</h3><p>Runs alongside existing Wi-Fi at lower setup and upkeep cost.</p></li>
+          <li><h3>Open standard</h3><p>IEEE 802.11ah, certified by the Wi-Fi Alliance.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section" id="products">
+    <div class="wrap">
+      <header class="section__head reveal">
+        <p class="eyebrow">Products</p>
+        <h2>A full stack, from silicon to the end user</h2>
+        <p>We don’t sell silicon alone. Our portfolio covers every layer OEMs, integrators and consumers need to adopt Wi-Fi HaLow.</p>
+      </header>
+
+      <div class="products">
+        <article class="product product--hero reveal">
+          <div class="product__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><rect x="12" y="12" width="24" height="24" rx="3"/><rect x="18" y="18" width="12" height="12" rx="1.5"/><path d="M17 12V6M24 12V6M31 12V6M17 42v-6M24 42v-6M31 42v-6M12 17H6M12 24H6M12 31H6M42 17h-6M42 24h-6M42 31h-6"/></svg>
+          </div>
+          <p class="product__tag">Core IP</p>
+          <h3>Wi-Fi HaLow SoC</h3>
+          <p>Our Wi-Fi HaLow chip integrates the digital baseband and RF front-end. It is the core intellectual property of the company and the focus of our engineering.</p>
+        </article>
+        <article class="product reveal">
+          <div class="product__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><rect x="8" y="14" width="32" height="22" rx="3"/><rect x="14" y="19" width="10" height="12" rx="1.5"/><path d="M30 20h5M30 25h5M30 30h5M36 14V6"/></svg>
+          </div>
+          <p class="product__tag">For OEMs</p>
+          <h3>RF Module</h3>
+          <p>A pre-certified radio module for manufacturers that don’t run their own RF design. It takes them from design to certified product faster.</p>
+        </article>
+        <article class="product reveal">
+          <div class="product__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="26" rx="3"/><rect x="12" y="16" width="10" height="10" rx="1.5"/><path d="M28 17h8M28 22h8M28 27h5M16 36v4M32 36v4M12 40h24"/></svg>
+          </div>
+          <p class="product__tag">For developers</p>
+          <h3>Evaluation Kit</h3>
+          <p>A developer board and SDK for prototyping HaLow products and winning designs before volume silicon arrives.</p>
+        </article>
+        <article class="product reveal">
+          <div class="product__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><rect x="8" y="26" width="32" height="12" rx="3"/><path d="M16 26V14M32 26V14M13 32h2M19 32h2"/><path d="M20 10a6 6 0 0 1 8 0M17 7a10 10 0 0 1 14 0" /></svg>
+          </div>
+          <p class="product__tag">For consumers</p>
+          <h3>HaLow Reach</h3>
+          <p>A long-range Wi-Fi HaLow router for homes, farms and small sites. It is our consumer brand.</p>
+        </article>
+        <article class="product reveal">
+          <div class="product__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="6"/><circle cx="10" cy="12" r="3.5"/><circle cx="38" cy="12" r="3.5"/><circle cx="10" cy="36" r="3.5"/><circle cx="38" cy="36" r="3.5"/><path d="M13 14l6 6M35 14l-6 6M13 34l6-6M35 34l-6-6"/></svg>
+          </div>
+          <p class="product__tag">Ecosystem</p>
+          <h3>Platform</h3>
+          <p>Shared IP, a certification lab, a developer portal and over-the-air firmware support that sit behind every product we ship.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATIONS -->
+  <section class="section section--alt" id="applications">
+    <div class="wrap">
+      <header class="section__head reveal">
+        <p class="eyebrow">Applications</p>
+        <h2>Built for the places other networks can’t reach</h2>
+      </header>
+      <div class="apps">
+        <article class="app reveal">
+          <img src="assets/img/farm.jpg" alt="Farmland from above" loading="lazy">
+          <div class="app__body">
+            <h3>Smart agriculture</h3>
+            <p>Soil, weather, irrigation and livestock sensors and cameras across the whole farm, not just near the buildings.</p>
+          </div>
+        </article>
+        <article class="app reveal">
+          <img src="assets/img/mine.jpg" alt="Miners and equipment in an underground tunnel" loading="lazy">
+          <div class="app__body">
+            <h3>Mining</h3>
+            <p>Links that pass through rock and concrete for safety monitoring, equipment telemetry and voice underground.</p>
+          </div>
+        </article>
+        <article class="app reveal">
+          <img src="assets/img/site.jpg" alt="Aerial view of an industrial site in a mountain valley" loading="lazy">
+          <div class="app__body">
+            <h3>Utilities &amp; industry</h3>
+            <p>Smart metering, substations and industrial IoT, with thousands of devices on a single secure network.</p>
+          </div>
+        </article>
+      </div>
+      <ul class="tags reveal" aria-label="More use cases">
+        <li>Security cameras</li><li>Smart cities</li><li>Large-area smart homes</li><li>Asset tracking</li><li>Environmental monitoring</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="section" id="progress">
+    <div class="wrap">
+      <header class="section__head reveal">
+        <p class="eyebrow">Progress</p>
+        <h2>From FPGA prototype to silicon</h2>
+        <p>Our technology comes from two funded research phases at the University of Cape Town’s Department of Electrical Engineering. The next step is a manufacturable, ASIC-ready chip.</p>
+      </header>
+
+      <ol class="timeline">
+        <li class="tl tl--done reveal">
+          <span class="tl__status">Complete</span>
+          <h3>Phase 1 — Digital baseband</h3>
+          <p>A Wi-Fi HaLow (802.11ah) digital baseband, built and verified as an FPGA System-on-Chip prototype.</p>
+        </li>
+        <li class="tl tl--done reveal">
+          <span class="tl__status">Complete</span>
+          <h3>RF front-end design</h3>
+          <p>Full transceiver architecture covering mixers, PLLs, LNA/PA and ADC/DAC interfaces. Includes transistor-level design, pre-layout simulation and DRC/LVS verification against foundry rules.</p>
+        </li>
+        <li class="tl tl--done reveal">
+          <span class="tl__status">Demonstrated</span>
+          <h3>First HaLow link</h3>
+          <p>One-way Wi-Fi HaLow communication demonstrated on our own design.</p>
+        </li>
+        <li class="tl tl--active reveal">
+          <span class="tl__status">In progress</span>
+          <h3>Field validation</h3>
+          <p>Range and speed trials on the UCT Green Mile. Permeability testing with UCT Civil Engineering through different concrete thicknesses and metal interference. Two-way communication across signal, text, voice and video.</p>
+        </li>
+        <li class="tl tl--active reveal">
+          <span class="tl__status">In progress</span>
+          <h3>FPGA-to-ASIC migration</h3>
+          <p>Converting the FPGA design to synthesisable, timing-closed RTL, followed by mixed-signal integration and top-level verification.</p>
+        </li>
+        <li class="tl reveal">
+          <span class="tl__status">Next</span>
+          <h3>Tape-out &amp; certification</h3>
+          <p>First silicon, then ICASA type approval and Wi-Fi Alliance certification. Commercial launch follows in South Africa, then Europe and North America.</p>
+        </li>
+      </ol>
+
+      <div class="roadmap reveal">
+        <h3 class="roadmap__title">Commercialisation roadmap</h3>
+        <div class="roadmap__track">
+          <div class="rm"><span>1</span>Design for manufacturing</div>
+          <div class="rm"><span>2</span>Post-silicon validation</div>
+          <div class="rm"><span>3</span>Testing &amp; certification</div>
+          <div class="rm"><span>4</span>Early market deployment</div>
+          <div class="rm"><span>5</span>Mass production &amp; launch</div>
+          <div class="rm"><span>6</span>Post-market scaling</div>
+        </div>
+        <p class="roadmap__note">A formal stage gate closes each phase. The gates are RTL freeze, first-silicon bring-up, certification and yield, and each must be cleared before the next phase begins.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section class="section section--market" id="market">
+    <div class="wrap">
+      <header class="section__head reveal">
+        <p class="eyebrow">Market</p>
+        <h2>The timing is right</h2>
+        <p>Wi-Fi HaLow silicon reached mass production in 2025, and adoption is moving from pilots to volume. The first reference designs are being set now, and we are entering as an African full-stack challenger.</p>
+      </header>
+      <div class="market">
+        <div class="mkt reveal"><b>$146m</b><span>Global Wi-Fi HaLow SoC market by 2031, growing 10.8% a year</span></div>
+        <div class="mkt reveal"><b>$1.97bn</b><span>Global Wi-Fi HaLow module market by 2032</span></div>
+        <div class="mkt reveal"><b>$14.5bn</b><span>South African IoT market by 2030, growing 13.3% a year</span></div>
+      </div>
+      <div class="launch reveal">
+        <div class="launch__step"><span class="launch__n">01</span><h3>South Africa</h3><p>Our home market. ICASA gives the fastest route to certification, and smart metering, precision agriculture and mining are direct fits.</p></div>
+        <div class="launch__step"><span class="launch__n">02</span><h3>Europe</h3><p>A leading market for industrial IoT and smart cities. Wi-Fi Alliance certification carries into the EU.</p></div>
+        <div class="launch__step"><span class="launch__n">03</span><h3>North America</h3><p>The largest market, entered once references and revenue are established.</p></div>
+      </div>
+      <p class="source">Market figures come from third-party research, including QY Research, IoT Analytics and Mordor Intelligence.</p>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section" id="team">
+    <div class="wrap">
+      <header class="section__head reveal">
+        <p class="eyebrow">Team</p>
+        <h2>The people building the chip</h2>
+        <p>Our founding team combines expertise in semiconductors, embedded systems and software-defined radio, with commercialisation support from the University of Cape Town. Select anyone to see their full profile.</p>
+      </header>
+
+      <article class="team-feature reveal" id="team-feature" aria-live="polite">
+        <img class="team-feature__photo" src="assets/img/team/simon-winberg.jpg" alt="A/Prof. Simon Winberg">
+        <div class="team-feature__content">
+          <h3 class="team-feature__name">A/Prof. Simon Winberg</h3>
+          <p class="team-feature__role">CTO &amp; Lead Principal Investigator</p>
+          <div class="team-feature__text">
+            <h4>Qualifications</h4>
+            <ul class="profile__quals"><li>PhD Electrical Engineering</li><li>MSc Computer Engineering</li></ul>
+              <p>Simon is an Associate Professor in the Department of Electrical Engineering at the University of Cape Town. He leads Sakon’s technology programme.</p>
+              <p>He was principal investigator on both UCT research phases behind the company. Those phases produced the Wi-Fi HaLow digital baseband, the FPGA System-on-Chip prototype and the RF front-end design.</p>
+            <h4>Focus areas</h4>
+            <ul class="profile__tags"><li>Embedded systems</li><li>High-performance computing</li><li>FPGAs</li><li>Smart sensors</li><li>Software-defined radio</li></ul>
+          
+          </div>
+        </div>
+      </article>
+
+      <div class="team">
+        <article class="person reveal is-active">
+          <img src="assets/img/team/simon-winberg.jpg" alt="A/Prof. Simon Winberg" loading="lazy">
+          <h3><button type="button" class="person__open" aria-pressed="true" aria-controls="team-feature">A/Prof. Simon Winberg</button></h3>
+          <p class="role">CTO &amp; Lead Principal Investigator</p>
+          <template class="person__full">
+            <h4>Qualifications</h4>
+            <ul class="profile__quals"><li>PhD Electrical Engineering</li><li>MSc Computer Engineering</li></ul>
+              <p>Simon is an Associate Professor in the Department of Electrical Engineering at the University of Cape Town. He leads Sakon’s technology programme.</p>
+              <p>He was principal investigator on both UCT research phases behind the company. Those phases produced the Wi-Fi HaLow digital baseband, the FPGA System-on-Chip prototype and the RF front-end design.</p>
+            <h4>Focus areas</h4>
+            <ul class="profile__tags"><li>Embedded systems</li><li>High-performance computing</li><li>FPGAs</li><li>Smart sensors</li><li>Software-defined radio</li></ul>
+          
+          </template>
+        </article>
+        <article class="person reveal">
+          <img src="assets/img/team/dean-makoni.jpg" alt="Dean Makoni" loading="lazy">
+          <h3><button type="button" class="person__open" aria-pressed="false" aria-controls="team-feature">Dean Makoni</button></h3>
+          <p class="role">Co-Founder · Technical R&amp;D Lead</p>
+          <template class="person__full">
+            <h4>Qualifications</h4>
+            <ul class="profile__quals"><li>MSc Electrical Engineering</li><li>BSc Electrical &amp; Computer Engineering</li></ul>
+              <p>Dean is a co-founder and engineer at Sakon Semiconductors and one of the leads of its technical research and development.</p>
+              <p>He is part of the core engineering team that took the Wi-Fi HaLow design from an FPGA prototype towards an ASIC-ready chip.</p>
+            <h4>Focus areas</h4>
+            <ul class="profile__tags"><li>Technical R&amp;D</li><li>Wi-Fi HaLow SoC design</li></ul>
+          
+          </template>
+        </article>
+        <article class="person reveal">
+          <img src="assets/img/team/kudzayi-samakande.jpg" alt="Kudzayi Samakande" loading="lazy">
+          <h3><button type="button" class="person__open" aria-pressed="false" aria-controls="team-feature">Kudzayi Samakande</button></h3>
+          <p class="role">Co-Founder · Technical R&amp;D Lead</p>
+          <template class="person__full">
+            <h4>Qualifications</h4>
+            <ul class="profile__quals"><li>BSc Electrical &amp; Computer Engineering</li></ul>
+              <p>Kudzayi is a co-founder and engineer at Sakon Semiconductors and one of the leads of its technical research and development.</p>
+              <p>He is part of the core engineering team that took the Wi-Fi HaLow design from an FPGA prototype towards an ASIC-ready chip.</p>
+            <h4>Focus areas</h4>
+            <ul class="profile__tags"><li>Technical R&amp;D</li><li>Wi-Fi HaLow SoC design</li></ul>
+          
+          </template>
+        </article>
+        <article class="person reveal">
+          <img src="assets/img/team/kai-goodall.jpg" alt="Kai Goodall" loading="lazy">
+          <h3><button type="button" class="person__open" aria-pressed="false" aria-controls="team-feature">Kai Goodall</button></h3>
+          <p class="role">Co-Founder · Project &amp; Operations Lead</p>
+          <template class="person__full">
+            <h4>Qualifications</h4>
+            <ul class="profile__quals"><li>MSc Electrical Engineering</li><li>BSc Mechatronics</li></ul>
+              <p>Kai is a co-founder and engineer at Sakon Semiconductors, where he leads project delivery and operations.</p>
+              <p>He handles planning, milestone tracking and reporting across the engineering programme, alongside hands-on engineering work.</p>
+            <h4>Focus areas</h4>
+            <ul class="profile__tags"><li>Project delivery</li><li>Operations</li><li>Engineering</li></ul>
+          
+          </template>
+        </article>
+        <article class="person reveal">
+          <img src="assets/img/team/vincent-muzerengwa.jpg" alt="Vincent Muzerengwa" loading="lazy">
+          <h3><button type="button" class="person__open" aria-pressed="false" aria-controls="team-feature">Vincent Muzerengwa</button></h3>
+          <p class="role">Engineer</p>
+          <template class="person__full">
+            <h4>Qualifications</h4>
+            <ul class="profile__quals"><li>BSc Electrical &amp; Computer Engineering</li></ul>
+              <p>Vincent is an engineer on Sakon’s core technical team and works on the development of the Wi-Fi HaLow system.</p>
+            <h4>Focus areas</h4>
+            <ul class="profile__tags"><li>Engineering</li><li>Wi-Fi HaLow development</li></ul>
+          
+          </template>
+        </article>
+        <article class="person reveal">
+          <img src="assets/img/team/niall-naidoo.jpg" alt="Niall Naidoo, MBA" loading="lazy">
+          <h3><button type="button" class="person__open" aria-pressed="false" aria-controls="team-feature">Niall Naidoo, MBA</button></h3>
+          <p class="role">Commercialisation Director</p>
+          <template class="person__full">
+            <h4>Qualifications</h4>
+            <ul class="profile__quals"><li>MBA</li></ul>
+              <p>Niall is Commercialisation Director of Sakon Semiconductors. He is also CEO of Rorschach Innovation, a specialist private equity firm.</p>
+              <p>At Sakon he leads commercialisation, fundraising and R&amp;D management, taking the technology from the University of Cape Town to market.</p>
+            <h4>Focus areas</h4>
+            <ul class="profile__tags"><li>Commercialisation</li><li>Fundraising</li><li>R&amp;D management</li><li>Private equity</li></ul>
+          
+          </template>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="partners" aria-label="Collaborators">
+    <div class="wrap">
+      <p class="partners__label">Developed with</p>
+      <ul class="partners__list">
+        <li>University of Cape Town</li>
+        <li>UCT Research Contracts &amp; Innovation</li>
+        <li>Siemens EDA</li>
+        <li>UCT Civil Engineering</li>
+        <li>Rorschach Innovation Services</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="contact__bg" aria-hidden="true"></div>
+    <div class="wrap contact__inner">
+      <div class="contact__text reveal">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Let’s build a better, more connected world</h2>
+        <p>We’re looking for OEM design partners, pilot customers in agriculture, mining and utilities, and investors who want to back African deep tech.</p>
+        <ul class="contact__who">
+          <li><b>OEMs &amp; integrators</b>: early access to modules and evaluation kits</li>
+          <li><b>Pilot sites</b>: field deployments in harsh and remote environments</li>
+          <li><b>Investors</b>: our data room is available on request</li>
+        </ul>
+      </div>
+      <form class="form reveal" id="contact-form" novalidate>
+        <div class="form__row">
+          <label>Name<input name="name" type="text" autocomplete="name" required></label>
+          <label>Organisation<input name="org" type="text" autocomplete="organization"></label>
+        </div>
+        <label>Email<input name="email" type="email" autocomplete="email" required></label>
+        <label>I’m interested in
+          <select name="interest">
+            <option>Partnering as an OEM / integrator</option>
+            <option>Running a pilot deployment</option>
+            <option>Investing</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label>Message<textarea name="message" rows="4"></textarea></label>
+        <button type="submit" class="btn btn--block">Send enquiry</button>
+        <p class="form__note" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <img src="assets/img/sakon-logo-light.png" alt="Sakon Semiconductor" width="200" height="28">
+    <p>Africa’s first Wi-Fi HaLow System-on-Chip.<br>A deep-tech venture born at the University of Cape Town.</p>
+    <p class="footer__small">© <span id="year">2026</span> Sakon Semiconductors. Wi-Fi HaLow® is a trademark of Wi-Fi Alliance.</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
