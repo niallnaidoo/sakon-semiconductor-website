@@ -266,5 +266,158 @@ const CONTACT_EMAIL = "";
       card.querySelector(".person__open").addEventListener("click", () => select(card)));
   }
 
+  // Field demo: packets travel across the Green Mile pitches to the chosen receiver
+  const gm = document.getElementById("gm");
+  if (gm) {
+    const NS = "http://www.w3.org/2000/svg";
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const TX = 62, Y = 200, RX = [370, 750, 1130];
+    const layer = gm.querySelector(".gm-packets");
+    const link = gm.querySelector(".gm-link");
+    const obstacle = gm.querySelector(".gm-obstacle");
+    const lock = gm.querySelector(".gm-lock");
+    const spy = gm.querySelector(".gm-spy");
+    const title = gm.querySelector(".gm__screen-title");
+    const msgs = gm.querySelector(".gm-msgs");
+    const timeEl = gm.querySelector(".gm-video__time");
+    const state = { test: "performance", payload: "text", rx: 2 };
+    const RATE = { text: 750, speech: 170, video: 230 };
+    let spawnTimer, screenTimer, spyTimer, visible = false, msgCount = 0, seconds = 0;
+
+    const el = (tag, attrs) => {
+      const n = document.createElementNS(NS, tag);
+      Object.entries(attrs).forEach(([k, v]) => n.setAttribute(k, v));
+      return n;
+    };
+
+    const packetShape = (kind) => {
+      const g = el("g", { class: `gm-packet gm-packet--${kind}` });
+      if (kind === "text") {
+        g.append(el("rect", { x: -11, y: -8, width: 22, height: 16, rx: 3 }),
+                 el("path", { d: "M-6 -3h12M-6 1h12M-6 5h7" }));
+      } else if (kind === "speech") {
+        g.append(el("circle", { r: 5 }), el("path", { d: "M8 -5a8 8 0 0 1 0 10" }));
+      } else {
+        g.append(el("rect", { x: -13, y: -9, width: 26, height: 18, rx: 3 }),
+                 el("path", { d: "M-3 -5l8 5-8 5z" }));
+      }
+      if (state.test === "resilience") g.append(el("circle", { class: "gm-packet__lock", cx: 12, cy: -10, r: 4 }));
+      return g;
+    };
+
+    const spawn = () => {
+      const g = packetShape(state.payload);
+      layer.append(g);
+      const end = RX[state.rx];
+      const dur = 700 + (end - TX) * 1.4;
+      const jitter = state.payload === "speech" ? (Math.random() * 8 - 4) : 0;
+      const anim = g.animate([
+        { transform: `translate(${TX}px, ${Y + jitter}px) scale(.6)`, opacity: 0 },
+        { transform: `translate(${TX + 40}px, ${Y + jitter}px) scale(1)`, opacity: 1, offset: .08 },
+        { transform: `translate(${end - 20}px, ${Y + jitter}px) scale(1)`, opacity: 1, offset: .94 },
+        { transform: `translate(${end}px, ${Y}px) scale(.4)`, opacity: 0 },
+      ], { duration: dur, easing: "linear" });
+      anim.onfinish = () => g.remove();
+    };
+
+    // An eavesdropper only ever picks up scrambled bytes
+    const scramble = () => {
+      const chars = "#%&@$*!?01xZ";
+      const txt = Array.from({ length: 5 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+      const sx = Number(spy.dataset.x);
+      const t = el("text", { class: "gm-scramble", x: sx + 8, y: Y + 18 });
+      t.textContent = txt;
+      layer.append(t);
+      t.animate([{ transform: "translateY(0)", opacity: 1 }, { transform: "translateY(64px)", opacity: 0 }],
+        { duration: 1400, easing: "ease-in" }).onfinish = () => t.remove();
+    };
+
+    const addMessage = () => {
+      msgCount += 1;
+      const n = String(msgCount).padStart(2, "0");
+      const li = document.createElement("li");
+      li.innerHTML = `<b class="gm-caret">Field test message ${n}</b><span>✓ received</span>`;
+      msgs.prepend(li);
+      setTimeout(() => li.querySelector("b").classList.remove("gm-caret"), 900);
+      while (msgs.children.length > 4) msgs.lastElementChild.remove();
+    };
+
+    const layout = () => {
+      const end = RX[state.rx];
+      link.setAttribute("x2", end);
+      const mid = TX + (end - TX) * 0.55;
+      obstacle.setAttribute("transform", `translate(${mid} ${Y})`);
+      lock.setAttribute("transform", `translate(${TX + (end - TX) * 0.25} ${Y})`);
+      const sx = TX + (end - TX) * 0.78;
+      spy.dataset.x = sx;
+      spy.setAttribute("transform", `translate(${sx} 300)`);
+      gm.querySelectorAll(".gm-rx").forEach((r, i) => {
+        r.classList.toggle("is-active", i === state.rx);
+        r.classList.toggle("is-idle", i > state.rx);
+      });
+      title.textContent = `Receiver · Pitch ${state.rx + 1}`;
+    };
+
+    const stop = () => { clearInterval(spawnTimer); clearInterval(screenTimer); clearInterval(spyTimer); };
+    const start = () => {
+      stop();
+      if (!visible || reduceMotion) return;
+      spawn();
+      spawnTimer = setInterval(spawn, RATE[state.payload]);
+      if (state.payload === "text") { addMessage(); screenTimer = setInterval(addMessage, 1600); }
+      if (state.payload === "video") {
+        screenTimer = setInterval(() => {
+          seconds += 1;
+          timeEl.textContent = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+        }, 1000);
+      }
+      if (state.test === "resilience") spyTimer = setInterval(scramble, 900);
+    };
+
+    const update = (key, value) => {
+      state[key] = value;
+      gm.dataset[key] = value;
+      gm.querySelectorAll(`[data-${key}]`).forEach((b) => {
+        if (b.tagName === "BUTTON") b.setAttribute("aria-pressed", String(b.dataset[key] === String(value)));
+      });
+      layer.replaceChildren();
+      layout();
+      start();
+    };
+
+    gm.querySelectorAll(".gm__tabs button").forEach((b) => b.addEventListener("click", () => update("test", b.dataset.test)));
+    gm.querySelectorAll(".gm__seg button[data-payload]").forEach((b) => b.addEventListener("click", () => update("payload", b.dataset.payload)));
+    gm.querySelectorAll(".gm__seg button[data-rx]").forEach((b) => b.addEventListener("click", () => update("rx", Number(b.dataset.rx))));
+    gm.querySelectorAll(".gm-rx").forEach((r) => r.addEventListener("click", () => update("rx", Number(r.dataset.rx))));
+
+    layout();
+    if (reduceMotion) addMessage();
+    // Only animate while the demo is on screen
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+        visible ? start() : stop();
+      }, { threshold: 0.15 }).observe(gm);
+    } else { visible = true; start(); }
+  }
+
+  // Photo lightbox for the demo gallery
+  const lightbox = document.getElementById("lightbox");
+  if (lightbox && typeof lightbox.showModal === "function") {
+    const lbImg = lightbox.querySelector(".lightbox__img");
+    const lbCap = lightbox.querySelector(".lightbox__cap");
+    document.querySelectorAll(".gallery__open").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const img = btn.querySelector("img");
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        lbCap.textContent = btn.closest("figure").querySelector("figcaption").textContent;
+        lightbox.showModal();
+      });
+    });
+    lightbox.querySelector(".lightbox__close").addEventListener("click", () => lightbox.close());
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) lightbox.close(); });
+  }
+
   document.getElementById("year").textContent = new Date().getFullYear();
 })();
