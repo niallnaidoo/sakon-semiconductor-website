@@ -5,6 +5,10 @@ It has no build step and no dependencies. Open `index.html` or host the folder o
 (Netlify, Vercel, GitHub Pages, cPanel, etc.).
 
 ## Structure
+The site is one HTML file split into pages: Home, Technology, Products, Applications, Progress, Field demo,
+Market, Team and Contact. Each page is a `<div class="page">`, and the menu switches between them by URL hash
+(for example `#team`), so every page has its own shareable link.
+
 - `index.html` has all the page content
 - `assets/css/styles.css` has the styling (colours and fonts are set in `:root` at the top)
 - `assets/js/main.js` handles the mobile menu, scroll effects and the contact form

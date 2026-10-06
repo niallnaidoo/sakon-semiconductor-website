@@ -38,9 +38,8 @@ const CONTACT_EMAIL = "";
   const toggle = document.querySelector(".nav__toggle");
   const links = document.getElementById("nav-links");
 
-  // Solid nav background once the page scrolls
-  const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 24);
-  onScroll();
+  // Solid nav background once the page scrolls, and always on pages without the photo hero
+  const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 24 || root.dataset.page !== "home");
   window.addEventListener("scroll", onScroll, { passive: true });
 
   // Mobile menu
@@ -73,18 +72,58 @@ const CONTACT_EMAIL = "";
     reveals.forEach((el) => el.classList.add("is-visible"));
   }
 
-  // Highlight the current section in the nav
-  const navLinks = [...links.querySelectorAll('a[href^="#"]:not(.btn)')];
-  const sections = navLinks.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
-  if ("IntersectionObserver" in window) {
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === `#${entry.target.id}`));
+  // Pages: each section group lives on its own page, chosen by the URL hash
+  const pages = [...document.querySelectorAll(".page")];
+  const navLinks = [...links.querySelectorAll('a[href^="#"]')];
+
+  // Previous / next links at the foot of every page
+  pages.forEach((page, idx) => {
+    const prev = pages[idx - 1];
+    const next = pages[idx + 1];
+    const pager = document.createElement("nav");
+    pager.className = "pager wrap";
+    pager.setAttribute("aria-label", "Page navigation");
+    pager.innerHTML =
+      (prev ? `<a class="pager__link pager__link--prev" href="#${prev.dataset.page === "home" ? "top" : prev.dataset.page}"><span>Previous</span>${prev.dataset.title}</a>` : "<span></span>") +
+      (next ? `<a class="pager__link pager__link--next" href="#${next.dataset.page}"><span>Next</span>${next.dataset.title}</a>` : "");
+    page.append(pager);
+  });
+
+  const pageFor = (hash) => {
+    const id = hash.replace(/^#/, "");
+    if (!id || id === "top" || id === "main") return { page: pages[0] };
+    const byName = pages.find((p) => p.dataset.page === id);
+    if (byName) return { page: byName };
+    const target = document.getElementById(id);
+    const page = target && target.closest(".page");
+    return page ? { page, target } : { page: pages[0] };
+  };
+
+  let currentPage = null;
+  const route = (initial = false) => {
+    const { page, target } = pageFor(location.hash);
+    const changed = page !== currentPage;
+    if (changed) {
+      pages.forEach((p) => p.classList.toggle("is-current", p === page));
+      currentPage = page;
+      root.dataset.page = page.dataset.page;
+      document.title = page.dataset.page === "home" ? "Sakon Semiconductor" : `${page.dataset.title} · Sakon Semiconductor`;
+      navLinks.forEach((a) => {
+        const on = !a.classList.contains("btn") && pageFor(a.getAttribute("href")).page === page;
+        a.classList.toggle("is-active", on);
+        if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
       });
-    }, { rootMargin: "-45% 0px -50% 0px" });
-    sections.forEach((s) => spy.observe(s));
-  }
+    }
+    // A link to something inside a page (e.g. #why) scrolls to it; otherwise start at the top
+    if (target && target !== page.querySelector(".section") && target.id !== page.dataset.page) {
+      requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+    } else if (changed || !initial) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    onScroll();
+  };
+  window.addEventListener("hashchange", () => route(false));
+  route(true);
 
   // Contact form
   const form = document.getElementById("contact-form");
@@ -249,10 +288,14 @@ const CONTACT_EMAIL = "";
         feature.classList.remove("is-swapping");
       };
 
+      // Load the next photo before fading back in, so the old one never flashes
+      const pre = new Image();
+      pre.src = card.querySelector("img").src;
+      const ready = pre.decode ? pre.decode().catch(() => {}) : Promise.resolve();
       clearTimeout(swapTimer);
-      if (reduceMotion) { fill(); } else {
+      if (reduceMotion) { ready.then(fill); } else {
         feature.classList.add("is-swapping");
-        swapTimer = setTimeout(fill, 280);
+        swapTimer = setTimeout(() => ready.then(fill), 280);
       }
 
       // On small screens the panel may be off-screen, so bring it into view
