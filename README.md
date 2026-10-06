@@ -1,5 +1,7 @@
 # Sakon Semiconductors website
 
+**Live site:** https://niallnaidoo.github.io/sakon-semiconductor-website/
+
 A static, single-page site for Sakon Semiconductors, the Wi-Fi HaLow (IEEE 802.11ah) SoC spin-out from UCT.
 It has no build step and no dependencies. Open `index.html` or host the folder on any static host
 (Netlify, Vercel, GitHub Pages, cPanel, etc.).
